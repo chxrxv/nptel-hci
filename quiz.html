@@ -37,7 +37,7 @@ label{font-size:.9rem;color:var(--mute)}
 .wrongitem .ans{color:var(--ok);font-weight:600}
 .tag{font-size:.8rem;color:var(--mute)}
 @media print{button,.top,.bar{display:none!important}body{background:#fff;color:#000}.card{border:0}}
-.opt.sel{border-color:var(--acc);background:var(--accbg)}.note{font-size:.85rem;color:var(--mute);margin:6px 0}.exp{margin-top:8px;font-size:.92rem;color:var(--mute)}
+.opt.sel{border-color:var(--acc);background:var(--accbg)}.note{font-size:.85rem;color:var(--mute);margin:6px 0}.fb.part{color:#c98a00}.exp{margin-top:8px;font-size:.92rem;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -218,7 +218,9 @@ function finishAnswer(ok, right, picked) {
   } else if (!ok) {
     S.queue.splice(Math.min(S.queue.length, S.i + 3), 0, Object.assign({}, q));
   }
+  const gotRight = picked.filter(j => right.includes(j)).length;
   if (ok) { S.ui.fb.className = "fb ok"; S.ui.fb.textContent = "Correct"; }
+  else if (q.multi && gotRight > 0) { S.ui.fb.className = "fb part"; S.ui.fb.textContent = "Partially right - you chose " + gotRight + " of " + right.length + " correct option" + (right.length > 1 ? "s" : "") + (picked.length > gotRight ? " and " + (picked.length - gotRight) + " incorrect one" + (picked.length - gotRight > 1 ? "s" : "") : "") + ". Correct answer: " + right.map(j => L[j] + ") " + q.opts[S.order[j]]).join("; ") + "  (Enter to skip ahead)"; }
   else { S.ui.fb.className = "fb bad"; S.ui.fb.textContent = "Wrong. Correct answer: " + right.map(j => L[j] + ") " + q.opts[S.order[j]]).join("; ") + "  (Enter to skip ahead)"; }
   if (q.x) S.ui.fb.append(h("div", { class: "exp" }, q.x));
   if (q.inf) S.ui.fb.append(h("div", { class: "tag" }, "(Answer inferred by me - the portal showed no accepted answer for this one.)"));
