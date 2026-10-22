@@ -178,6 +178,7 @@ function showQ() {
     h("div", { class: "card" },
       h("span", { class: "chip" }, q.redo ? "Re-asking" : (q.part === "A" ? "NPTEL" : "Practice")), h("span", { class: "chip" }, q.id), h("span", { class: "chip" }, q.topic), q.multi ? h("span", { class: "chip" }, "Select all that apply") : null,
       h("div", { class: "stem" }, q.stem),
+      q.img ? h("img", { src: "data:image/png;base64," + q.img, style: "max-width:100%;background:#fff;border-radius:8px;margin:0 0 10px" }) : null,
       opts, fb, nextBox),
     h("button", { class: "main alt", onclick: () => { if (confirm("Quit this quiz?")) home(); } }, "Quit")
   );
