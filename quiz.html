@@ -91,7 +91,7 @@ function home() {
   const seen = Object.keys(hist).length;
   draw(
     h("h1", {}, "HCI Quiz"),
-    h("div", { class: "mute" }, "Design & Implementation of Human-Computer Interfaces. One question at a time. Right answers move on by themselves; wrong answers show the answer for 10 seconds. A checkpoint every 10 questions lets you re-ask your mistakes, and everything wrong is asked again at the end until you clear it."),
+    h("div", { class: "mute" }, "Design & Implementation of Human-Computer Interfaces. One question at a time. Right answers move on by themselves; wrong answers show the answer for 5 seconds. A checkpoint every 10 questions lets you re-ask your mistakes, and everything wrong is asked again at the end until you clear it."),
     h("div", { class: "card" },
       h("label", { for: "mode" }, "Mode"), mode,
       h("label", { for: "kw" }, "Topic keyword filter"), kw,
@@ -222,7 +222,7 @@ function finishAnswer(ok, right, picked) {
   else { S.ui.fb.className = "fb bad"; S.ui.fb.textContent = "Wrong. Correct answer: " + right.map(j => L[j] + ") " + q.opts[S.order[j]]).join("; ") + "  (Enter to skip ahead)"; }
   if (q.x) S.ui.fb.append(h("div", { class: "exp" }, q.x));
   if (q.inf) S.ui.fb.append(h("div", { class: "tag" }, "(Answer inferred by me - the portal showed no accepted answer for this one.)"));
-  S.timer = setTimeout(next, ok ? 450 : 10000);
+  S.timer = setTimeout(next, ok ? 300 : 5000);
 }
 function next() {
   clearTimeout(S.timer);
